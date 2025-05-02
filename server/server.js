@@ -15,19 +15,6 @@ const links = require("./handlers/links.handler");
 const routes = require("./routes");
 const utils = require("./utils");
 
-// 👇 TEMPORARY: insert v1n.org if missing
-require('./queries/domain.queries')
-  .find({ address: 'v1n.org' })
-  .then(d => {
-    if (!d) {
-      console.log('Adding v1n.org to domains...');
-      return require('./queries/domain.queries').add({ address: 'v1n.org', homepage: true });
-    } else {
-      console.log('Domain already exists.');
-    }
-  })
-  .catch(console.error);
-
 // run the cron jobs
 // the app might be running in cluster mode (multiple instances) so run the cron job only on one cluster (the first one)
 // NODE_APP_INSTANCE variable is added by pm2 automatically, if you're using something else to cluster your app, then make sure to set this variable
